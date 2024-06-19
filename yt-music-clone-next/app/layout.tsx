@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "YT Music",
-  description: "Clone Youtube Music",
+  description: "Youtube Music Clone",
 };
 
 export default function RootLayout({
