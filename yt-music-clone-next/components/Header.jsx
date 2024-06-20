@@ -4,6 +4,34 @@ import UserIcon from "./UserIcon";
 import PagePadding from "./PagePadding";
 import { FaChromecast } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
+import Logo from "./elements/Logo";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import Navigator from "./elements/Navigator";
+
+const HeaderDrawer = ({ children }) => {
+  return (
+    <Drawer direction="left">
+      <DrawerTrigger>{children}</DrawerTrigger>
+      <DrawerContent className="w-[240px] h-full">
+        <div className="py-[24px]">
+          <div className="px-3">
+            <Logo />
+          </div>
+          <Navigator />
+        </div>
+      </DrawerContent>
+    </Drawer>
+  );
+};
 
 const Header = ({ children }) => {
   return (
@@ -26,6 +54,11 @@ const Header = ({ children }) => {
       <section className="sticky">
         <PagePadding>
           <div className="h-[64px] flex flex-row justify-between items-center">
+            <HeaderDrawer>
+              <article className="lg:hidden">
+                <Logo />
+              </article>
+            </HeaderDrawer>
             <article className="lg:flex flex-row hidden justify-between items-center bg-[rgba(0,0,0,0.14)] rounded-2xl h-[42px] min-w-[480px] gap-[16px] px-[16px] border-neutral-500 border-[1px]">
               <div>
                 <FiSearch size={24} />
