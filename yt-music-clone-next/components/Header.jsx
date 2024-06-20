@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import UserIcon from "./UserIcon";
 import PagePadding from "./PagePadding";
@@ -16,15 +17,18 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import Navigator from "./elements/Navigator";
+import { cn } from "@/lib/utils";
 
 const HeaderDrawer = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Drawer direction="left">
+    <Drawer direction="left" open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger>{children}</DrawerTrigger>
       <DrawerContent className="w-[240px] h-full">
         <div className="py-[24px]">
           <div className="px-3">
-            <Logo />
+            <Logo isInDrawer={isOpen} onClickClose={() => setIsOpen(false)} />
           </div>
           <Navigator />
         </div>
@@ -34,8 +38,26 @@ const HeaderDrawer = ({ children }) => {
 };
 
 const Header = ({ children }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const headRef = useRef();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollValue = headRef?.current?.scrollTop;
+      // 최상단일때 value=0
+      setIsScrolled(scrollValue !== 0);
+    };
+
+    const headRefCurrent = headRef?.current;
+
+    headRefCurrent.addEventListener("scroll", handleScroll);
+    return () => {
+      headRefCurrent.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="relative overflow-y-auto w-full h-full">
+    <header ref={headRef} className="relative overflow-y-auto w-full h-full">
       <section className="absolute top-0 w-full">
         <div className="relative h-[400px] w-full">
           <Image
@@ -50,8 +72,9 @@ const Header = ({ children }) => {
         <div className="absolute top-0 bg-black opacity-40 w-full h-[400px]"></div>
         <div className="absolute top-0 bg-gradient-to-t from-black w-full h-[400px]"></div>
       </section>
-      {/* searchSection */}
-      <section className="sticky">
+      <section
+        className={cn("sticky top-0 left-0 z-10", isScrolled && "bg-black")}
+      >
         <PagePadding>
           <div className="h-[64px] flex flex-row justify-between items-center">
             <HeaderDrawer>
