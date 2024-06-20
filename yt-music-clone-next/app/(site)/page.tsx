@@ -1,15 +1,15 @@
 import React from "react";
+import Category from "./components/category";
+import PagePadding from "@/components/PagePadding";
 
 const page = async () => {
   // throw new Error("my error");
   return (
-    <div className="min-h-[600px]">
-      HomePage
-      <div className="h-[500px] w-[100vh] bg-purple-900">HomePage</div>
-      <div className="h-[500px] w-[100vh] bg-purple-800">HomePage</div>
-      <div className="h-[500px] w-[100vh] bg-purple-900">HomePage</div>
-      <div className="h-[500px] w-[100vh] bg-purple-800">HomePage</div>
-    </div>
+    <PagePadding>
+      <div className="min-h-[600px] mt-10">
+        <Category />
+      </div>
+    </PagePadding>
   );
 };
 
