@@ -17,7 +17,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    // 단순 경고라 무시해도 되지만 거슬리니까 suppressHydrationWarning 설정
+    //  https://github.com/vercel/next.js/discussions/22388#discussioncomment-6992884
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
