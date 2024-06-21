@@ -68,11 +68,6 @@ const Header = ({ children }) => {
       >
         <PagePadding>
           <div className="h-[64px] flex flex-row justify-between items-center">
-            <HeaderDrawer>
-              <article className="lg:hidden">
-                <Logo />
-              </article>
-            </HeaderDrawer>
             <article className="lg:flex flex-row hidden justify-between items-center bg-[rgba(0,0,0,0.14)] rounded-2xl h-[42px] min-w-[480px] gap-[16px] px-[16px] border-neutral-500 border-[1px]">
               <div>
                 <FiSearch size={24} />
@@ -83,6 +78,11 @@ const Header = ({ children }) => {
                 type="text"
               />
             </article>
+            <HeaderDrawer>
+              <article className="lg:hidden">
+                <Logo />
+              </article>
+            </HeaderDrawer>
             <article className="flex flex-row gap-4 items-center px-2">
               <FaChromecast size={26} />
               <UserIcon />
@@ -90,7 +90,7 @@ const Header = ({ children }) => {
           </div>
         </PagePadding>
       </section>
-      <section className="absolute">{children}</section>
+      <section className="relative">{children}</section>
     </header>
   );
 };

@@ -22,12 +22,12 @@ const Category = () => {
   };
 
   return (
-    <ul className="flex flex-row gap-4  max-w-full overflow-x-auto">
+    <ul className="flex flex-row gap-4 max-w-full overflow-x-auto">
       {homeCategoryList.map((item) => (
         <li
           onClick={() => onClickCategory(item)}
           className={cn(
-            "min-w-fit bg-[rgba(144,144,144,0.2)] hover:bg-[rgba(144,144,144,0.45)] text-white px-3 py-2 rounded-md cursor-pointer",
+            "flex justify-center items-center border border-transparent min-w-fit bg-[rgba(144,144,144,0.2)] hover:bg-[rgba(144,144,144,0.45)] text-white px-3 py-2 rounded-md cursor-pointer",
             item.label === homeCategory && "bg-white text-black hover:bg-white"
           )}
           key={item.label}
