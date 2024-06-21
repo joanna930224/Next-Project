@@ -59,9 +59,10 @@ const Header = ({ children }) => {
             alt="mediaItem"
             src={homeImageSrc}
           />
+
+          <div className="absolute h-[400px] top-0 bg-black opacity-40 w-full "></div>
+          <div className="absolute h-[400px] top-0 bg-gradient-to-t from-black w-full "></div>
         </div>
-        <div className="absolute top-0 bg-black opacity-40 w-full h-[400px]"></div>
-        <div className="absolute top-0 bg-gradient-to-t from-black w-full h-[400px]"></div>
       </section>
       <section
         className={cn("sticky top-0 left-0 z-10", isScrolled && "bg-black")}

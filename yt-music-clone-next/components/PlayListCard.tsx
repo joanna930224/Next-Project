@@ -22,13 +22,18 @@ const PlayListCard: React.FC<{ playList: PlayList }> = ({ playList }) => {
   const onClickPlay = () => {};
 
   return (
-    <article className="lg:h-[240px] h-[300px] cursor-pointer group">
+    <article className="h-[240px] 2xl:h-[260px] cursor-pointer group">
       <section
         onClick={onClickCard}
-        className="relative lg:h-[136px] h-[240px]"
+        className="relative h-[136px] 2xl:h-[200px]"
       >
-        <Image src={imageSrc} fill={true} alt="thumbnail" />
-        <div className="hidden relative group-hover:block bg-gradient-to-b from-[rgba(0,0,0,0.7)] top-0 w-full lg:h-[136px] h-[240px]">
+        <Image
+          src={imageSrc}
+          fill={true}
+          alt="thumbnail"
+          className="object-cover rounded-md"
+        />
+        <div className="hidden relative group-hover:block bg-gradient-to-b from-[rgba(0,0,0,0.7)] top-0 w-full h-[136px] 2xl:h-[200px]">
           <div className="absolute top-2 right-2">
             <IconButton icon={<MdMoreVert size={20} />} />
           </div>
@@ -40,7 +45,7 @@ const PlayListCard: React.FC<{ playList: PlayList }> = ({ playList }) => {
           </div>
         </div>
       </section>
-      <section>
+      <section className="mt-2">
         <div>{playlistName}</div>
         <div className="text-neutral-500">{`${owner} - 트랙 ${songList.length}개`}</div>
       </section>

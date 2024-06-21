@@ -6,7 +6,7 @@ export interface Song {
   imageSrc: string;
 }
 
-export interface TopSong {
+export interface TopSong extends Song {
   prevRank: number;
   rank: number;
 }
