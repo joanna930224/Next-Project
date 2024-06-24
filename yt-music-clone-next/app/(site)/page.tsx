@@ -1,5 +1,5 @@
 import React from "react";
-import Category from "./components/category";
+import Category from "../library/components/category";
 import PagePadding from "@/components/PagePadding";
 import PlayListCarousel from "@/components/PlayListCarousel";
 import { dummyPlaylistArray, getPlaylistById } from "@/lib/dummyData";
