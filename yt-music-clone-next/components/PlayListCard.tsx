@@ -32,7 +32,10 @@ const PlayListCard: React.FC<{ playList: PlayList }> = ({ playList }) => {
         className="relative h-[136px] 2xl:h-[200px]"
       >
         <Image
-          src={imageSrc}
+          src={
+            imageSrc ||
+            "https://images.unsplash.com/photo-1707833558984-3293e794031c"
+          }
           fill={true}
           alt="thumbnail"
           className="object-cover rounded-md"
