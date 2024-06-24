@@ -181,16 +181,16 @@ export const dummyChannelList = [
   {
     id: 3,
     subscribers: 3900,
-    name: "daldam music",
-    songList: getSongsBychannel("daldam music"),
-    playlistArray: getPlaylistByOwner("daldam music"),
+    name: "ClearnEars",
+    songList: getSongsBychannel("ClearnEars"),
+    playlistArray: getPlaylistByOwner("ClearnEars"),
   },
   {
     id: 4,
     subscribers: 3900,
-    name: "ClearnEars",
-    songList: getSongsBychannel("ClearnEars"),
-    playlistArray: getPlaylistByOwner("ClearnEars"),
+    name: "daldam music",
+    songList: getSongsBychannel("daldam music"),
+    playlistArray: getPlaylistByOwner("daldam music"),
   },
   {
     id: 5,
