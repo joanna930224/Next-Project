@@ -6,7 +6,7 @@ import PagePadding from "./PagePadding";
 import { FaChromecast } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import Logo from "./elements/Logo";
-import useUIState from "@/hooks/useUiState";
+import useUIState from "@/hooks/use_ui_state";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import Navigator from "./elements/Navigator";
 import { cn } from "@/lib/utils";
