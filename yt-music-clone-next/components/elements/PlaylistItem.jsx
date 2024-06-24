@@ -1,12 +1,14 @@
 "use client";
+import usePlayerState from "@/hooks/usePlayerState";
 import React from "react";
 import { IoPlayCircle } from "react-icons/io5";
 
 const PlaylistItem = ({ playList }) => {
-  const { id, owner, playlistName, songList } = playList;
+  const { addSongList } = usePlayerState();
+  const { owner, playlistName, songList } = playList;
 
   const onClickPlay = () => {
-    console.log("onClickPlay");
+    addSongList(songList);
   };
 
   return (

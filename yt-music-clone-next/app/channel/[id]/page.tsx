@@ -19,7 +19,7 @@ const page = async (props: ChannelPageProps) => {
 
   console.log(props.params.id);
 
-  // if (!channel) permanentRedirect("/");
+  if (!channel) permanentRedirect("/");
 
   const imageSrc = getRandomElementFromArray(channel.songList)?.imageSrc;
 
