@@ -112,7 +112,7 @@ const PlayerContent = () => {
               <Image
                 fill
                 className="object-cover"
-                src={activeSong?.imageSrc ?? ""}
+                src={activeSong?.imageSrc}
                 alt="img"
               ></Image>
             </div>
