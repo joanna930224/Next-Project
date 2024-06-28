@@ -9,7 +9,7 @@ const Main = () => {
     <>
       <div className={styles.container}>
         <div className={styles.left}>
-          <Image src={xLogo} width={400} height={400} alt="logo" />
+          <Image src={xLogo} width={60} height={60} alt="logo" />
         </div>
         <div className={styles.right}>
           <h1>지금 일어나고 있는 일</h1>

@@ -3,7 +3,6 @@
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.4);
   top: 0;
@@ -12,28 +11,61 @@
   bottom: 0;
 }
 
+.modal {
+  background-color: rgb(var(--background-end-rgb));
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
 @media (prefers-color-scheme: dark) {
   .modalBackground {
     background-color: rgba(91, 112, 131, 0.4);
   }
 }
 
-.modal {
-  background-color: rgb(var(--background-end-rgb));
-  position: relative;
-  top: 5%;
-  max-width: 80vw;
-  min-width: 600px;
-  border-radius: 16px;
+.modalHeader {
   display: flex;
-  flex-direction: column;
-  height: 450px;
+  align-items: center;
+  padding: 10px 20px;
 }
 
-.modalHeader {
-  padding: 36px 80px 20px;
+.closeButton {
+  width: 34px;
+  height: 34px;
+  border-radius: 17px;
+  border: none;
+  cursor: pointer;
+  background-color: #fff;
+  transform: translateX(-50%);
+}
+.closeButton:hover {
+  background-color: rgba(15, 20, 25, 0.1);
+}
+@media (prefers-color-scheme: dark) {
+  .closeButton {
+    background-color: black;
+  }
+  .closeButton svg {
+    fill: white;
+  }
+}
+
+.modalLogo {
+  position: absolute;
+  top: 10px;
+  right: 46.5%;
+}
+
+.modalTitle {
   font-size: 31px;
   font-weight: bold;
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  height: 76px;
 }
 
 .modal form {
@@ -44,22 +76,7 @@
 
 .modalBody {
   flex: 1;
-  padding: 0 80px;
-}
-@media all and (min-width: 687px) {
-  .modal {
-    top: 5%;
-    min-width: 600px;
-    max-width: 600px;
-    height: 450px;
-    padding: 0;
-  }
-  .modalHeader {
-    padding: 36px 80px 20px;
-  }
-  .modalBody {
-    padding: 0 80px;
-  }
+  padding: 0 20px;
 }
 
 .inputDiv {
@@ -93,15 +110,37 @@
   outline: none;
 }
 
-.modalFooter {
-  padding: 24px 80px;
+.snsButtonGroup {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 20px;
+  gap: 16px;
+}
+
+.snsButton {
+  width: 100%;
+  height: 44px;
+  border-radius: 25px;
+  background-color: rgb(15, 20, 25);
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 6px;
+}
+.snsButton:hover {
+  background-color: rgba(15, 20, 25, 0.9);
 }
 
 .actionButton {
   width: 100%;
-  height: 50px;
+  height: 36px;
   border-radius: 25px;
-  background-color: rgb(15, 20, 25);
+  background-color: rgb(39, 44, 48);
   color: white;
   font-size: 17px;
   cursor: pointer;
@@ -111,31 +150,55 @@
   opacity: 0.5;
 }
 .actionButton:hover {
-  background-color: rgb(39, 44, 48);
+  background-color: rgb(29, 155, 240);
 }
 
-.closeButton {
-  width: 34px;
-  height: 34px;
-  border-radius: 17px;
-  border: none;
-  cursor: pointer;
-  background-color: #fff;
-  position: absolute;
-  left: 16px;
-  top: 16px;
+.divider {
   display: flex;
   align-items: center;
-  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding: 0px 20px;
 }
-.closeButton:hover {
-  background-color: rgba(15, 20, 25, 0.1);
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid rgb(207, 217, 222);
 }
-@media (prefers-color-scheme: dark) {
-  .closeButton {
-    background-color: black;
+/* 텍스트와 선 사이의 간격 */
+.divider::before {
+  margin-right: 10px;
+}
+.divider::after {
+  margin-left: 10px;
+}
+
+.modalFooter {
+  padding: 24px 20px 50px 20px;
+}
+
+@media all and (min-width: 687px) {
+  .modal {
+    top: 10%;
+    min-width: 600px;
+    max-width: 600px;
+    height: 650px;
+    padding: 0;
   }
-  .closeButton svg {
-    fill: white;
+  .modalBody {
+    padding: 0 130px;
+  }
+  .divider {
+    padding: 0px 130px;
+  }
+  .modalTitle {
+    padding-left: 130px;
+  }
+  .snsButtonGroup {
+    padding: 16px 130px;
+  }
+  .modalFooter {
+    padding: 24px 130px 50px 130px;
   }
 }
