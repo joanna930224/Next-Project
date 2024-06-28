@@ -1,0 +1,14 @@
+.container {
+  width: 100%;
+  height: 400px;
+  align-items: center;
+  justify-items: center;
+  background-color: plum;
+}
+
+.container2 {
+  width: 100%;
+  height: 400px;
+  align-items: center;
+  justify-items: center;
+}

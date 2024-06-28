@@ -1,11 +1,14 @@
 "use client";
-import styles from "@/app/page.module.css";
 import { useRouter } from "next/navigation";
 import Main from "../_components/main";
+import { useEffect } from "react";
 
 export default function Login() {
   const router = useRouter();
-  router.replace("/i/flow/login");
+
+  useEffect(() => {
+    router.replace("/i/flow/login");
+  }, [router]);
 
   return <Main />;
 }

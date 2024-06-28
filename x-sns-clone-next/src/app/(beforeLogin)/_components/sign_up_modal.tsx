@@ -1,40 +1,42 @@
 "use client";
 
-import style from "@/app/(beforeLogin)/_components/login.module.css";
-import { useState, ChangeEventHandler, useCallback } from "react";
+import style from "@/app/(beforeLogin)/_components/sign_up.module.css";
+import { useState, ChangeEventHandler } from "react";
 import xLogo from "../../../../public/x_logo.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 
-export default function LoginModal() {
-  const { replace, back } = useRouter();
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState();
-
+export default function SignUpModal() {
+  const router = useRouter();
   const onClickClose = () => {
-    back();
+    router.back();
   };
+
+  const [id, setId] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [password, setPassword] = useState("");
+  const [image, setImage] = useState("");
+  const [imageFile, setImageFile] = useState<File>();
 
   const onChangeId: ChangeEventHandler<HTMLInputElement> = (e) => {
     setId(e.target.value);
+  };
+
+  const onChangeNickname: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setNickname(e.target.value);
   };
 
   const onChangePassword: ChangeEventHandler<HTMLInputElement> = (e) => {
     setPassword(e.target.value);
   };
 
-  const onSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+  const onChangeImageFile: ChangeEventHandler<HTMLInputElement> = (e) => {
+    e.target.files && setImageFile(e.target.files[0]);
+  };
 
-      // TODO : 로그인 검증 로직
-      replace("/home");
-    },
-    [replace]
-  );
+  const onSubmit = () => {};
 
   return (
     <div className={style.modalBackground}>
@@ -57,20 +59,20 @@ export default function LoginModal() {
           </div>
         </div>
         <div className={style.modalTitle}>
-          <div>X 로그인하기</div>
+          <div>계정을 생성하세요</div>
         </div>
         <div className={style.snsButtonGroup}>
           <button className={style.snsButton}>
             <div>
               <FcGoogle size={20} />
             </div>
-            <div>Google 계정으로 로그인</div>
+            <div>Google 계정으로 가입하기</div>
           </button>
           <button className={style.snsButton}>
             <div>
               <FaApple size={20} />
             </div>
-            <div>Apple로 로그인하기</div>
+            <div>Apple에서 가입하기</div>
           </button>
         </div>
         <div className={style.divider}>또는</div>
@@ -90,6 +92,19 @@ export default function LoginModal() {
               />
             </div>
             <div className={style.inputDiv}>
+              <label className={style.inputLabel} htmlFor="nickname">
+                닉네임
+              </label>
+              <input
+                id="nickname"
+                className={style.input}
+                value={nickname}
+                onChange={onChangeNickname}
+                type="nickname"
+                placeholder=""
+              />
+            </div>
+            <div className={style.inputDiv}>
               <label className={style.inputLabel} htmlFor="password">
                 비밀번호
               </label>
@@ -102,11 +117,22 @@ export default function LoginModal() {
                 placeholder=""
               />
             </div>
+            <div className={style.inputDiv}>
+              <label className={style.inputLabel} htmlFor="image">
+                프로필
+              </label>
+              <input
+                id="image"
+                className={style.inputFile}
+                type="file"
+                accept="image/*"
+                onChange={onChangeImageFile}
+              />
+            </div>
           </div>
-          <div className={style.message}>{message}</div>
           <div className={style.modalFooter}>
-            <button className={style.actionButton} disabled={!id && !password}>
-              로그인
+            <button className={style.actionButton} disabled>
+              가입하기
             </button>
           </div>
         </form>

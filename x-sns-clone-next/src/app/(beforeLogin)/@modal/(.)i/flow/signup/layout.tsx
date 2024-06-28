@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "X에 로그인하기",
+  title: "X 가입하기",
 };
 
 type Props = { children: ReactNode };
