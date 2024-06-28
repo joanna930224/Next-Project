@@ -21,3 +21,9 @@
   line-height: 16px;
   font-weight: lighter;
 }
+
+@media (prefers-color-scheme: dark) {
+  .container:hover {
+    background-color: rgba(100, 100, 100, 0.3);
+  }
+}

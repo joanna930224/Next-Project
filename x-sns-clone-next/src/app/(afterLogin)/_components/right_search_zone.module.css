@@ -58,3 +58,9 @@
 .radio > div {
   flex: 1;
 }
+
+@media (prefers-color-scheme: dark) {
+  .search {
+    background-color: rgba(100, 100, 100, 0.4);
+  }
+}

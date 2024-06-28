@@ -7,7 +7,7 @@
   cursor: pointer;
   border: none;
   align-items: center;
-  background-color: #fff;
+  background-color: rgb(var(--background-end-rgb));
   text-align: left;
 }
 .logOutUserInfo {
@@ -51,4 +51,10 @@
 .logOutButton:hover {
   background-color: rgba(15, 20, 25, 0.1);
   border-radius: 33px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .logOutButton:hover {
+    background-color: rgba(100, 100, 100, 0.3);
+  }
 }
