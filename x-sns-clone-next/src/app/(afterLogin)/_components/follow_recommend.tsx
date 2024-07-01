@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import style from "./follow_recommend.module.css";
+import FollowButton from "./follow_button";
 
 export default function FollowRecommend() {
-  const onFollow = () => {};
-
   const user = {
     id: "LCK",
     nickname: "LCK",
@@ -23,9 +22,7 @@ export default function FollowRecommend() {
         <div className={style.title}>{user.nickname}</div>
         <div className={style.count}>@{user.id}</div>
       </div>
-      <div className={style.followButtonSection}>
-        <button onClick={onFollow}>Follow</button>
-      </div>
+      <FollowButton />
     </div>
   );
 }

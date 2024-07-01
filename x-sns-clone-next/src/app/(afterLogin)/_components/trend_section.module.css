@@ -1,8 +1,9 @@
 .trendBg {
-  background-color: rgb(247, 249, 249);
+  background-color: var(--light-grey);
   border: 0.5px solid transparent;
   border-radius: 16px;
   margin-top: 12px;
+  border-color: var(--border-color);
 }
 .trend {
   font-size: 20px;
@@ -24,15 +25,5 @@
   color: rgb(26, 140, 216);
 }
 .trendShowMore:hover {
-  background-color: rgba(0, 0, 0, 0.03);
-}
-
-@media (prefers-color-scheme: dark) {
-  .trendBg {
-    background-color: rgba(49, 49, 49, 0.4);
-    border-color: rgba(100, 100, 100, 0.3);
-  }
-  .trendShowMore:hover {
-    background-color: rgba(100, 100, 100, 0.3);
-  }
+  background-color: var(--hover-background-color);
 }

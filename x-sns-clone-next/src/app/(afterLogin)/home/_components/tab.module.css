@@ -1,6 +1,6 @@
 .main {
   width: 600px;
-  border-color: rgb(239, 243, 244);
+  border-color: var(--border-color);
   border-right-width: 1px;
   border-left-width: 1px;
   border-left-style: solid;
@@ -16,7 +16,7 @@
   width: 598px;
   background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
-  border-color: rgb(239, 243, 244);
+  border-color: var(--border-color);
   border-bottom-width: 1px;
   border-bottom-style: solid;
 }

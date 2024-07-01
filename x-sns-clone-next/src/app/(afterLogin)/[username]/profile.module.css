@@ -1,0 +1,116 @@
+.main {
+  width: 600px;
+  border-color: var(--border-color);
+  border-right-width: 1px;
+  border-left-width: 1px;
+  border-left-style: solid;
+  border-right-style: solid;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 120vh;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  height: 53px;
+  align-items: center;
+}
+
+.userBgImage {
+  position: relative;
+  width: 100%;
+  height: 175px;
+  overflow: hidden;
+}
+
+.userBgImage img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.userImage {
+  position: relative;
+  width: 134px;
+  height: 134px;
+  margin: -70px 16px;
+  border-radius: 10px;
+  border-width: 3px;
+  border-style: solid;
+  border-color: var(--white);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.userImage img {
+  width: 100%;
+  height: 100%;
+}
+
+/* after - 선택한 element 뒤에 가상 콘텐츠 삽입 */
+.userImage::after {
+  /* HTML에는 존재하지 않고 CSS에서만 존재하는 가상 요소이기 때문에 
+  javaScrip로 제어하기 어렵기때문에 text/image 등을 넣어서만 추가할 수 있음. */
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition-duration: 0.2s;
+  border-radius: 10px;
+}
+
+.userImage:hover::after {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.buttons {
+  display: flex;
+  padding: 16px 16px;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.moreButton {
+  width: 34px;
+  height: 34px;
+  padding: 8px;
+  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--border-color);
+  border-radius: 50px;
+  align-items: center;
+  justify-items: center;
+}
+
+.moreButton:hover {
+  background-color: var(--hover-background-color);
+  border-radius: 50px;
+}
+
+.info {
+  padding: 16px 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.info > div {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  align-items: center;
+  color: var(--grey);
+  font-size: 15px;
+}
+.info > div > span {
+  color: var(--black);
+  font-size: 14px;
+  font-weight: bold;
+  padding: 4px 0px;
+}
+
+.info > div > div {
+  font-size: 14px;
+}

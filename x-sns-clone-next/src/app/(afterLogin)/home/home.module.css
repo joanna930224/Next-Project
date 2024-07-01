@@ -1,6 +1,6 @@
 .main {
   width: 600px;
-  border-color: rgb(239, 243, 244);
+  border-color: var(--border-color);
   border-right-width: 1px;
   border-left-width: 1px;
   border-left-style: solid;
@@ -12,10 +12,5 @@
 @media all and (min-width: 687px) {
   .main {
     width: 600px;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  .main {
-    border-color: rgb(47, 51, 54);
   }
 }

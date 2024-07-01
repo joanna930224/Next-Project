@@ -148,6 +148,6 @@
 @media (prefers-color-scheme: dark) {
   .followRecommend {
     background-color: rgba(49, 49, 49, 0.4);
-    border-color: rgba(100, 100, 100, 0.3);
+    border-color: var(--border-color);
   }
 }

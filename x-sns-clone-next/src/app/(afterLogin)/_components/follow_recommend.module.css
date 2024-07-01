@@ -32,22 +32,3 @@
   font-size: 13px;
   line-height: 16px;
 }
-
-.followButtonSection {
-  width: 76px;
-}
-
-.followButtonSection button {
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  color: white;
-  background: #000;
-  font-size: 14px;
-  font-weight: bold;
-  height: 32px;
-  border-radius: 16px;
-}
-.followButtonSection button:hover {
-  background-color: rgb(39, 44, 48);
-}
