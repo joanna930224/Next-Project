@@ -23,7 +23,8 @@ export default function Post({ noImage }: Props) {
       nickname: "LCK",
       image: "/lck.jpeg",
     },
-    content: "",
+    content:
+      "HEAT is in the forecast for Week 3! ☀️ What match are you looking forward to this week?💬",
     createdAt: new Date(),
     Images: [] as any[],
   };
