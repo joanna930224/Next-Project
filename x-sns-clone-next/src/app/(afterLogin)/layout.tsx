@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import style from "@/app/(afterLogin)/layout.module.css";
+import style from "./layout.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import xLogo from "../../../public/x_logo.svg";
