@@ -1,0 +1,35 @@
+.chat {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+  color: var(--grey);
+  align-items: center;
+  padding: 16px;
+}
+
+.profileImage img {
+  width: 40px;
+  height: 40px;
+  border-radius: 10%;
+}
+
+.nickname {
+  font-weight: bold;
+  color: var(--black);
+}
+
+.chat:hover {
+  background-color: var(--hover-background-color);
+}
+
+.info {
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
