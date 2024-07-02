@@ -1,0 +1,133 @@
+.background {
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal {
+  background: var(--white);
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.closeButton {
+  width: 34px;
+  height: 34px;
+  background-color: var(--white);
+  border: none;
+  border-radius: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 6px 6px;
+}
+
+.closeButton:hover {
+  background-color: var(--hover-background-color);
+}
+
+.postUserSection {
+  margin-right: 12px;
+  width: 40px;
+}
+
+.postUserImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
+
+.postUserImage img {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
+
+.postForm {
+  display: flex;
+  border-color: var(--border-color);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  padding: 16px;
+}
+
+.postInputSection {
+  flex: 1;
+}
+.postButtonSection {
+  width: 100%;
+  padding: 8px 16px;
+}
+.postForm textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  height: 140px;
+}
+.postForm textarea::placeholder {
+  font-family: Malgun Gothic;
+}
+.footerButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.footerButtonLeft {
+  flex: 1;
+}
+.uploadButton {
+  width: 34px;
+  height: 34px;
+  border: none;
+  cursor: pointer;
+  border-radius: 17px;
+  transition-duration: 0.2s;
+  transition-property: background-color;
+  background-color: rgb(29, 155, 240, 0.01);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.uploadButton:hover {
+  background-color: rgba(204, 222, 234, 0.1);
+}
+
+.actionButton:disabled {
+  opacity: 0.5;
+}
+.actionButton {
+  width: 94px;
+  height: 36px;
+  border: none;
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 18px;
+  background-color: var(--blue);
+}
+.actionButton:hover {
+  background-color: var(--blue-hover);
+}
+
+@media all and (min-width: 687px) {
+  .modal {
+    top: 10%;
+    max-width: 600px;
+    max-height: 270px;
+    height: 270px;
+    padding: 0;
+  }
+}
