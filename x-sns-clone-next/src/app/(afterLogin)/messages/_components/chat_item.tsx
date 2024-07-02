@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import style from "./chat.module.css";
+import style from "./chat_item.module.css";
 import { useRouter } from "next/navigation";
 
-const Chat = () => {
+const ChatItem = () => {
   const { push } = useRouter();
 
   const onClick = () => {
@@ -36,4 +36,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default ChatItem;

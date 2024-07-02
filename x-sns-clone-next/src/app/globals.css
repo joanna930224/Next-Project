@@ -25,6 +25,8 @@ a {
   --black: rgb(0, 0, 0);
   --light-grey: rgb(247, 249, 249);
   --grey: rgb(113, 118, 123);
+  --blue: rgb(29, 155, 240);
+  --blue-hover: rgb(26, 140, 216);
 
   --max-width: 1100px;
   --border-radius: 12px;

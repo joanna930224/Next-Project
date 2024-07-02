@@ -233,12 +233,12 @@
 }
 .commentButton.commented svg,
 .commentButton:hover svg {
-  fill: rgb(29, 155, 240);
+  fill: var(--blue);
 }
 
 .commentButton.commented .count,
 .commentButton:hover .count {
-  color: rgb(29, 155, 240);
+  color: var(--blue);
 }
 
 .reportButton button {

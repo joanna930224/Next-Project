@@ -81,8 +81,8 @@
   font-weight: 700;
   font-size: 15px;
   border-radius: 18px;
-  background-color: rgb(29, 155, 240);
+  background-color: var(--blue);
 }
 .actionButton:hover {
-  background-color: rgb(26, 140, 216);
+  background-color: var(--blue-hover);
 }

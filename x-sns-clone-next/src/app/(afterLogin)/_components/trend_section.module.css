@@ -22,7 +22,7 @@
   align-items: stretch;
   background-color: transparent;
   padding: 16px;
-  color: rgb(26, 140, 216);
+  color: var(--blue);
 }
 .trendShowMore:hover {
   background-color: var(--hover-background-color);

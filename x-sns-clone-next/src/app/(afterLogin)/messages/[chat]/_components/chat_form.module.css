@@ -1,0 +1,29 @@
+.chat {
+  border-radius: 21px;
+  background-color: var(--light-grey);
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  margin: 6px 16px;
+}
+
+.chat textarea {
+  outline: none;
+  border: none;
+  width: 100%;
+  background-color: transparent;
+  padding: 12px;
+}
+
+.chat button {
+  border: none;
+  background-color: transparent;
+  padding: 0px 16px;
+  cursor: pointer;
+  color: var(--blue);
+}
+
+.chat button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}

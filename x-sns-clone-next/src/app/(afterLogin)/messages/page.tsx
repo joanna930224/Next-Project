@@ -1,5 +1,5 @@
 import { FiSearch } from "react-icons/fi";
-import Chat from "./_components/chat";
+import ChatItem from "./_components/chat_item";
 import EmptyChat from "./_components/empty_chat";
 import style from "./messages.module.css";
 
@@ -24,10 +24,10 @@ export default function Home() {
           <input type="search" placeholder="Search Direct Messages" />
         </form>
       </div>
-      <Chat />
-      <Chat />
-      <Chat />
-      <Chat />
+      <ChatItem />
+      <ChatItem />
+      <ChatItem />
+      <ChatItem />
     </main>
   );
 }
