@@ -1,7 +1,7 @@
 import BackButton from "../_components/back_button";
 import Post from "../_components/post";
 import SearchForm from "../_components/search_form";
-import Tab from "../home/_components/tab";
+import Tab from "./_components/tab";
 import style from "./search.module.css";
 
 type Props = {
