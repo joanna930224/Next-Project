@@ -1,18 +1,19 @@
 "use client";
 
 import style from "@/app/(beforeLogin)/_components/login.module.css";
-import { useState, ChangeEventHandler, useCallback } from "react";
+import { useState, ChangeEventHandler, FormEventHandler } from "react";
 import xLogo from "../../../../public/x_logo.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
+import { signIn } from "next-auth/react";
 
 export default function LoginModal() {
   const { replace, back } = useRouter();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState();
+  const [message, setMessage] = useState("");
 
   const onClickClose = () => {
     back();
@@ -26,15 +27,29 @@ export default function LoginModal() {
     setPassword(e.target.value);
   };
 
-  const onSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+  const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    setMessage("");
 
-      // TODO : 로그인 검증 로직
-      replace("/home");
-    },
-    [replace]
-  );
+    try {
+      const response = await signIn("credentials", {
+        username: id,
+        password,
+        redirect: false,
+      });
+      // 이렇게 진행시 무조건적으로 200코드가 날라와서 제대로 동작하지 않음
+      // 정확한 원인을 파악하지 못해서 임시로 response?.error로 사용
+      // if (!response?.ok) {
+      if (response?.error) {
+        setMessage("아이디와 비밀번호가 일치하지 않습니다.");
+      } else {
+        replace("/home");
+      }
+    } catch (err) {
+      console.error(err);
+      setMessage("아이디와 비밀번호가 일치하지 않습니다.");
+    }
+  };
 
   return (
     <div className={style.modalBackground}>
@@ -102,8 +117,8 @@ export default function LoginModal() {
                 placeholder=""
               />
             </div>
+            <div className={style.message}>{message}</div>
           </div>
-          <div className={style.message}>{message}</div>
           <div className={style.modalFooter}>
             <button className={style.actionButton} disabled={!id && !password}>
               로그인
