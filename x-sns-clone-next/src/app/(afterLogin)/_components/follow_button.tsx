@@ -1,14 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import style from "./follow_button.module.css";
 
-const FollowButton = () => {
-  const onClick = () => {};
+type Props = {
+  onFollow: MouseEventHandler<HTMLButtonElement>;
+  text: string;
+};
 
+const FollowButton = ({ onFollow, text }: Props) => {
   return (
     <div className={style.followButtonSection}>
-      <button onClick={onClick}>Follow</button>
+      <button onClick={onFollow}>{text}</button>
     </div>
   );
 };
