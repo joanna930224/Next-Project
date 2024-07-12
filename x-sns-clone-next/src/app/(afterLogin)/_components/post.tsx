@@ -3,46 +3,56 @@ import Link from "next/link";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
-import { faker } from "@faker-js/faker";
 import ActionButtons from "./action_buttons";
 import PostArticle from "./post_article";
 import PostImages from "./post_images";
 import Image from "next/image";
+import { Post as PostModel } from "@/models/post";
+import { MouseEventHandler } from "react";
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
 
 type Props = {
   noImage?: boolean;
+  post: PostModel;
 };
-export default function Post({ noImage }: Props) {
-  const target = {
-    postId: 1,
-    User: {
-      id: "lck_esports",
-      nickname: "LCK",
-      image: "/lck.jpeg",
-    },
-    content:
-      "HEAT is in the forecast for Week 3! ☀️ What match are you looking forward to this week?💬",
-    createdAt: new Date(),
-    Images: [] as any[],
-  };
 
-  if (Math.random() > 0.5 && !noImage) {
-    target.Images.push(
-      { imageId: 1, link: faker.image.urlLoremFlickr() },
-      { imageId: 2, link: faker.image.urlLoremFlickr() },
-      { imageId: 3, link: faker.image.urlLoremFlickr() },
-      { imageId: 4, link: faker.image.urlLoremFlickr() }
-    );
+export default function Post({ noImage, post }: Props) {
+  let target = post;
+
+  if (post.Original) {
+    target = post.Original;
   }
+
+  const stopPropagation: MouseEventHandler<HTMLAnchorElement> = (e) => {
+    e.stopPropagation();
+  };
 
   return (
     <PostArticle post={target}>
+      {post.Original && (
+        <div className={style.postReposted}>
+          <svg
+            viewBox="0 0 24 24"
+            width={16}
+            aria-hidden="true"
+            className="r-14j79pv r-4qtqp9 r-yyyyoo r-10ptun7 r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1janqcz"
+          >
+            <g>
+              <path d="M4.75 3.79l4.603 4.3-1.706 1.82L6 8.38v7.37c0 .97.784 1.75 1.75 1.75H13V20H7.75c-2.347 0-4.25-1.9-4.25-4.25V8.38L1.853 9.91.147 8.09l4.603-4.3zm11.5 2.71H11V4h5.25c2.347 0 4.25 1.9 4.25 4.25v7.37l1.647-1.53 1.706 1.82-4.603 4.3-4.603-4.3 1.706-1.82L18 15.62V8.25c0-.97-.784-1.75-1.75-1.75z"></path>
+            </g>
+          </svg>
+          ${post.User.nickname} reposted
+        </div>
+      )}
       <div className={style.postWrapper}>
         <div className={style.postUserSection}>
-          <Link href={`/${target.User.id}`} className={style.postUserImage}>
+          <Link
+            href={`/${target.User.id}`}
+            className={style.postUserImage}
+            onClick={stopPropagation}
+          >
             <Image
               src={target.User.image}
               width={40}
@@ -54,7 +64,7 @@ export default function Post({ noImage }: Props) {
         </div>
         <div className={style.postBody}>
           <div className={style.postMeta}>
-            <Link href={`/${target.User.id}`}>
+            <Link href={`/${target.User.id}`} onClick={stopPropagation}>
               <span className={style.postUserName}>{target.User.nickname}</span>
               &nbsp;
               <span className={style.postUserId}>@{target.User.id}</span>
@@ -64,10 +74,23 @@ export default function Post({ noImage }: Props) {
               {dayjs(target.createdAt).fromNow(true)}
             </span>
           </div>
+          {target.Parent && (
+            <div>
+              <Link
+                href={`/${target.Parent.User.id}`}
+                style={{ color: "rgb(29, 155, 240)" }}
+                onClick={stopPropagation}
+              >
+                Replying to @{target.Parent.User.id}
+              </Link>
+            </div>
+          )}
           <div>{target.content}</div>
-          <div>
-            <PostImages post={target} />
-          </div>
+          {!noImage && (
+            <div>
+              <PostImages post={target} />
+            </div>
+          )}
           <ActionButtons />
         </div>
       </div>

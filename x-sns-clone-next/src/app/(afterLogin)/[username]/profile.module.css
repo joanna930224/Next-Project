@@ -114,3 +114,12 @@
 .info > div > div {
   font-size: 14px;
 }
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 200px;
+}

@@ -1,3 +1,4 @@
+import PhotoModal from "@/app/(afterLogin)/@modal/[username]/status/[id]/photo/[photo]/page";
 import Home from "@/app/(afterLogin)/home/page";
 
 type Props = {
@@ -7,5 +8,10 @@ export default function Page({ params }: Props) {
   params.username;
   params.id;
   params.photoId;
-  return <Home />;
+  return (
+    <>
+      <Home />;
+      <PhotoModal params={params} />
+    </>
+  );
 }

@@ -8,14 +8,11 @@ import { FiSearch } from "react-icons/fi";
 import { FiMail } from "react-icons/fi";
 import { GoPersonFill } from "react-icons/go";
 import { useSelectedLayoutSegment } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const NavMenu = () => {
   const segment = useSelectedLayoutSegment();
-
-  // 더미데이터
-  const me = {
-    id: "kun_0426",
-  };
+  const { data: me } = useSession();
 
   return (
     <>
@@ -65,9 +62,9 @@ const NavMenu = () => {
             )}
           </div>
         </Link>
-        <Link href={`/${me?.id}`}>
+        <Link href={`/${me?.user?.email}`}>
           <div className={style.navItem}>
-            {segment === me.id ? (
+            {segment === me?.user?.email ? (
               <>
                 <GoPersonFill size={24} />
                 <div style={{ fontWeight: "bold" }}>Profile</div>
