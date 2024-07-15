@@ -1,28 +1,387 @@
 "use client";
+
+import { Post } from "@/models/post";
 import style from "./post.module.css";
 import cn from "classnames";
+import {
+  InfiniteData,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
+import { MouseEventHandler } from "react";
+import { useModalStore } from "@/store/modal";
+import { useRouter } from "next/navigation";
 
 type Props = {
   white?: boolean;
+  post: Post;
 };
-export default function ActionButtons({ white }: Props) {
-  const commented = false;
-  const reported = false;
-  const liked = false;
+export default function ActionButtons({ white, post }: Props) {
+  const queryClient = useQueryClient();
+  const modalStore = useModalStore();
+  const router = useRouter();
+  const { data: session } = useSession();
+  const { postId } = post;
 
-  const onClickComment = () => {};
-  const onClickReport = () => {};
-  const onClickHeart = () => {};
+  // 로그인한 유저가 눌렀는지 확인하기 위함 (배열에 누른 사용자의 id(=email)가 들어있음)
+  const reported = !!post.Reposts?.find(
+    (v) => v.userId === session?.user?.email
+  );
+  const liked = !!post.Hearts?.find((v) => v.userId === session?.user?.email);
+
+  const heart = useMutation({
+    mutationFn: () => {
+      return fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${postId}/heart`,
+        {
+          method: "post",
+          credentials: "include",
+        }
+      );
+    },
+    onMutate() {
+      addHeart();
+    },
+    onError() {
+      deleteHeart();
+    },
+    onSettled() {
+      // 하트 누를때마다 posts 전체 새로고침할건지
+      // queryClient.invalidateQueries({
+      //   queryKey: ["posts"],
+      // });
+    },
+  });
+
+  const unheart = useMutation({
+    mutationFn: () => {
+      return fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${postId}/heart`,
+        {
+          method: "delete",
+          credentials: "include",
+        }
+      );
+    },
+    onMutate() {
+      deleteHeart();
+    },
+    onError() {
+      addHeart();
+    },
+    onSettled() {},
+  });
+
+  const addHeart = () => {
+    const queryCache = queryClient.getQueryCache();
+    const queryKeys = queryCache.getAll().map((cache) => cache.queryKey);
+
+    console.log("queryKeys", queryKeys);
+
+    queryKeys.forEach((queryKey) => {
+      if (queryKey[0] === "posts") {
+        console.log(queryKey[0]);
+
+        // 인피니티스크롤 적용되어있으면 InfiniteData로 해줘야함
+        const value: Post | InfiniteData<Post[]> | undefined =
+          queryClient.getQueryData(queryKey);
+
+        // pages 배열일 때
+        if (value && "pages" in value) {
+          console.log("array", value);
+
+          // 2차원배열로 되어있어서 flat()해서 1차원 배열로 만들어주고 진행
+          const obj = value.pages.flat().find((v) => v.postId === postId);
+          // 존재하는지
+          if (obj) {
+            const pageIndex = value.pages.findIndex((page) =>
+              // page에 obj가 포함되어있는지 체크
+              page.includes(obj)
+            );
+            const index = value.pages[pageIndex].findIndex(
+              (v) => v.postId === postId
+            );
+
+            // 얕은복사해주기
+            const shallow = { ...value };
+            value.pages = { ...value.pages };
+            value.pages[pageIndex] = [...value.pages[pageIndex]];
+            shallow.pages[pageIndex][index] = {
+              ...shallow.pages[pageIndex][index],
+              Hearts: [{ userId: session?.user?.email as string }],
+              _count: {
+                ...shallow.pages[pageIndex][index]._count,
+                Hearts: shallow.pages[pageIndex][index]._count.Hearts + 1,
+              },
+            };
+            queryClient.setQueryData(queryKey, shallow);
+          }
+          // Detail Post일 때
+        } else {
+          if (value?.postId === postId) {
+            const shallow = {
+              ...value,
+              Hearts: [{ userId: session?.user?.email as string }],
+              _count: {
+                ...value._count,
+                Hearts: value._count.Hearts + 1,
+              },
+            };
+            queryClient.setQueryData(queryKey, shallow);
+          }
+        }
+      }
+    });
+  };
+
+  const deleteHeart = () => {
+    const queryCache = queryClient.getQueryCache();
+    const queryKeys = queryCache.getAll().map((cache) => cache.queryKey);
+
+    console.log("queryKeys", queryKeys);
+
+    queryKeys.forEach((queryKey) => {
+      if (queryKey[0] === "posts") {
+        console.log(queryKey[0]);
+
+        const value: Post | InfiniteData<Post[]> | undefined =
+          queryClient.getQueryData(queryKey);
+
+        if (value && "pages" in value) {
+          console.log("array", value);
+
+          const obj = value.pages.flat().find((v) => v.postId === postId);
+          if (obj) {
+            const pageIndex = value.pages.findIndex((page) =>
+              page.includes(obj)
+            );
+            const index = value.pages[pageIndex].findIndex(
+              (v) => v.postId === postId
+            );
+
+            const shallow = { ...value };
+            value.pages = { ...value.pages };
+            value.pages[pageIndex] = [...value.pages[pageIndex]];
+            shallow.pages[pageIndex][index] = {
+              ...shallow.pages[pageIndex][index],
+              Hearts: shallow.pages[pageIndex][index].Hearts.filter(
+                (v) => v.userId !== session?.user?.email
+              ),
+              _count: {
+                ...shallow.pages[pageIndex][index]._count,
+                Hearts: shallow.pages[pageIndex][index]._count.Hearts - 1,
+              },
+            };
+            queryClient.setQueryData(queryKey, shallow);
+          }
+        } else {
+          if (value?.postId === postId) {
+            const shallow = {
+              ...value,
+              Hearts: value.Hearts.filter(
+                (v) => v.userId !== session?.user?.email
+              ),
+              _count: {
+                ...value._count,
+                Hearts: value._count.Hearts - 1,
+              },
+            };
+            queryClient.setQueryData(queryKey, shallow);
+          }
+        }
+      }
+    });
+  };
+
+  const repost = useMutation({
+    mutationFn: () => {
+      return fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${post.postId}/reposts`,
+        {
+          method: "post",
+          credentials: "include",
+        }
+      );
+    },
+    async onSuccess(response) {
+      if (!response.ok) {
+        return;
+      }
+
+      const data = (await response.json()) as Post;
+      const queryCache = queryClient.getQueryCache();
+      const queryKeys = queryCache.getAll().map((cache) => cache.queryKey);
+
+      queryKeys.forEach((queryKey) => {
+        if (queryKey[0] === "posts") {
+          console.log(queryKey[0]);
+
+          const value: Post | InfiniteData<Post[]> | undefined =
+            queryClient.getQueryData(queryKey);
+
+          if (value && "pages" in value) {
+            console.log("array", value);
+
+            const obj = value.pages.flat().find((v) => v.postId === postId);
+            if (obj) {
+              const pageIndex = value.pages.findIndex((page) =>
+                page.includes(obj)
+              );
+              const index = value.pages[pageIndex].findIndex(
+                (v) => v.postId === postId
+              );
+
+              const shallow = { ...value };
+              value.pages = { ...value.pages };
+              value.pages[pageIndex] = [...value.pages[pageIndex]];
+              shallow.pages[pageIndex][index] = {
+                ...shallow.pages[pageIndex][index],
+                Reposts: [{ userId: session?.user?.email as string }],
+                _count: {
+                  ...shallow.pages[pageIndex][index]._count,
+                  Reposts: shallow.pages[pageIndex][index]._count.Reposts + 1,
+                },
+              };
+              // repost 추가
+              shallow.pages[0].unshift(data);
+              queryClient.setQueryData(queryKey, shallow);
+            }
+          } else {
+            if (value?.postId === postId) {
+              const shallow = {
+                ...value,
+                Reposts: [{ userId: session?.user?.email as string }],
+                _count: {
+                  ...value._count,
+                  Reposts: value._count.Reposts + 1,
+                },
+              };
+              queryClient.setQueryData(queryKey, shallow);
+            }
+          }
+        }
+      });
+    },
+  });
+
+  const deleteRepost = useMutation({
+    mutationFn: () => {
+      return fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${post.postId}/reposts`,
+        {
+          method: "delete",
+          credentials: "include",
+        }
+      );
+    },
+    async onSuccess(response) {
+      if (!response.ok) {
+        return;
+      }
+      const queryCache = queryClient.getQueryCache();
+      const queryKeys = queryCache.getAll().map((cache) => cache.queryKey);
+
+      queryKeys.forEach((queryKey) => {
+        if (queryKey[0] === "posts") {
+          console.log(queryKey[0]);
+
+          const value: Post | InfiniteData<Post[]> | undefined =
+            queryClient.getQueryData(queryKey);
+
+          if (value && "pages" in value) {
+            console.log("array", value);
+
+            const obj = value.pages.flat().find((v) => v.postId === postId);
+
+            // repost 제거하기위해
+            const repost = value.pages
+              .flat()
+              .find(
+                (v) =>
+                  v.Original?.postId === postId &&
+                  v.User.id === session?.user?.email
+              );
+
+            if (obj) {
+              const pageIndex = value.pages.findIndex((page) =>
+                page.includes(obj)
+              );
+              const index = value.pages[pageIndex].findIndex(
+                (v) => v.postId === postId
+              );
+
+              const shallow = { ...value };
+              value.pages = { ...value.pages };
+              value.pages[pageIndex] = [...value.pages[pageIndex]];
+              shallow.pages[pageIndex][index] = {
+                ...shallow.pages[pageIndex][index],
+                Reposts: shallow.pages[pageIndex][index].Reposts.filter(
+                  (v) => v.userId !== session?.user?.email
+                ),
+                _count: {
+                  ...shallow.pages[pageIndex][index]._count,
+                  Reposts: shallow.pages[pageIndex][index]._count.Reposts - 1,
+                },
+              };
+
+              //repost 제거
+              shallow.pages = shallow.pages.map((page) => {
+                return page.filter((v) => v.postId !== repost?.postId);
+              });
+              queryClient.setQueryData(queryKey, shallow);
+            }
+          } else {
+            if (value?.postId === postId) {
+              const shallow = {
+                ...value,
+                Reposts: value.Reposts.filter(
+                  (v) => v.userId !== session?.user?.email
+                ),
+                _count: {
+                  ...value._count,
+                  Reposts: value._count.Reposts - 1,
+                },
+              };
+              queryClient.setQueryData(queryKey, shallow);
+            }
+          }
+        }
+      });
+    },
+  });
+
+  const onClickComment: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation();
+
+    modalStore.setMode("comment");
+    modalStore.setData(post);
+    router.push("/compose/tweet");
+  };
+
+  const onClickReport: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation();
+
+    if (!reported) {
+      repost.mutate();
+    } else {
+      deleteRepost.mutate();
+    }
+  };
+
+  const onClickHeart: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation();
+
+    if (liked) {
+      unheart.mutate();
+    } else {
+      heart.mutate();
+    }
+  };
 
   return (
     <div className={style.actionButtons}>
-      <div
-        className={cn(
-          style.commentButton,
-          { [style.commented]: commented },
-          white && style.white
-        )}
-      >
+      <div className={cn(style.commentButton, white && style.white)}>
         <button onClick={onClickComment}>
           <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
             <g>
@@ -30,7 +389,7 @@ export default function ActionButtons({ white }: Props) {
             </g>
           </svg>
         </button>
-        <div className={style.count}>{1 || ""}</div>
+        <div className={style.count}>{post._count?.Comments || ""}</div>
       </div>
       <div
         className={cn(
@@ -46,7 +405,7 @@ export default function ActionButtons({ white }: Props) {
             </g>
           </svg>
         </button>
-        <div className={style.count}>{1 || ""}</div>
+        <div className={style.count}>{post._count?.Reposts || ""}</div>
       </div>
       <div
         className={cn([
@@ -62,7 +421,7 @@ export default function ActionButtons({ white }: Props) {
             </g>
           </svg>
         </button>
-        <div className={style.count}>{24 || ""}</div>
+        <div className={style.count}>{post._count?.Hearts || ""}</div>
       </div>
     </div>
   );
