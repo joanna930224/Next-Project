@@ -1,6 +1,6 @@
 import style from "./explore.module.css";
 import SearchForm from "../_components/search_form";
-import Trend from "../_components/trend";
+import TrendSection from "./_components/trend_section";
 
 export default function Page() {
   return (
@@ -10,16 +10,7 @@ export default function Page() {
       </div>
       <div className={style.trend}>
         <h3>South Korea trends</h3>
-        <Trend />
-        <Trend />
-        <Trend />
-        <Trend />
-        <Trend />
-        <Trend />
-        <Trend />
-        <Trend />
-        <Trend />
-        <Trend />
+        <TrendSection />
       </div>
     </main>
   );
