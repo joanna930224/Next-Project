@@ -38,6 +38,20 @@
   background-color: var(--hover-background-color);
 }
 
+.modalBody {
+  padding: 0 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.modalOriginal {
+  padding: 0 16px 20px;
+  margin-bottom: -54px;
+  display: flex;
+  flex-direction: row;
+}
+
 .postUserSection {
   margin-right: 12px;
   width: 40px;
@@ -60,11 +74,12 @@
   border-color: var(--border-color);
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  padding: 16px;
+  flex-direction: column;
 }
 
 .postInputSection {
   flex: 1;
+  height: 110px;
 }
 .postButtonSection {
   width: 100%;
@@ -75,7 +90,7 @@
   border: none;
   outline: none;
   font-size: 20px;
-  height: 140px;
+  height: 105px;
 }
 .postForm textarea::placeholder {
   font-family: Malgun Gothic;
@@ -85,9 +100,22 @@
   flex-direction: row;
   align-items: center;
 }
-.footerButtonLeft {
+
+.preview {
   flex: 1;
+  display: flex;
+  flex-direction: row;
 }
+
+.reply {
+  color: var(--grey);
+  gap: 5px;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
+  margin-bottom: 54px;
+}
+
 .uploadButton {
   width: 34px;
   height: 34px;

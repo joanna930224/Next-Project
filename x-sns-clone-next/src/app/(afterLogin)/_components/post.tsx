@@ -75,8 +75,8 @@ export default function Post({ noImage, post }: Props) {
             </span>
           </div>
           {target.Parent && (
-            <div>
-              Replying to
+            <div className={style.reply}>
+              <div>Replying to</div>
               <Link
                 href={`/${target.Parent.User.id}`}
                 style={{ color: "rgb(29, 155, 240)" }}

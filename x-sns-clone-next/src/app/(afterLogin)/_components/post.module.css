@@ -13,6 +13,14 @@
   background-color: var(--hover-background-color);
 }
 
+.reply {
+  color: var(--grey);
+  gap: 5px;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
+}
+
 .postWrapper {
   display: flex;
   flex-direction: row;

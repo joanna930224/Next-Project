@@ -38,7 +38,13 @@ export default function PostImages({ post }: Props) {
         }}
         onClick={stopPropagation}
       >
-        <Image src={post.Images[0]?.link} alt="img" />
+        <Image
+          src={post.Images[0]?.link}
+          width={500}
+          height={500}
+          style={{ objectFit: "cover" }}
+          alt="img"
+        />
       </Link>
     );
   }
