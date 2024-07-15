@@ -34,7 +34,7 @@ const NavMenu = () => {
         </Link>
         <Link href="/explore">
           <div className={style.navItem}>
-            {segment === "explore" ? (
+            {segment && ["search", "explore"].includes(segment) ? (
               <>
                 <FiSearch size={24} />
                 <div style={{ fontWeight: "bold" }}>Explore</div>

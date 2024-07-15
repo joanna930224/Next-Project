@@ -2,15 +2,24 @@
 
 import style from "./tab.module.css";
 import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Tab() {
   const [tab, setTab] = useState("Top");
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const onClickTop = () => {
     setTab("Top");
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.delete("f");
+    router.replace(`/search?${newSearchParams.toString()}`);
   };
   const onClickLatest = () => {
     setTab("Latest");
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("f", "live");
+    router.replace(`/search?${newSearchParams.toString()}`);
   };
 
   return (
