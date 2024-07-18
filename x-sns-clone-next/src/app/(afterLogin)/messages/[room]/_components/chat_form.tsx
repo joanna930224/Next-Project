@@ -26,7 +26,6 @@ const ChatForm = ({ id }: Props) => {
   const queryClient = useQueryClient();
 
   const onSubmit = () => {
-    console.log("onSubmit");
     if (!session?.user?.email) {
       return;
     }
@@ -79,8 +78,10 @@ const ChatForm = ({ id }: Props) => {
   };
 
   const onEnter: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
+    console.log("e.key", e.key);
     if (e.key === "Enter") {
       console.log("onEnter");
+      console.log(content);
       // console.log(e.key === "Enter", e);
       if (e.shiftKey) {
         return;
@@ -91,7 +92,16 @@ const ChatForm = ({ id }: Props) => {
         return;
       }
 
-      onSubmit();
+      // 한글은 자음과 모음이 하나의 글자로 이루어져있기때문에
+      // 한글입력시 아직 조합중인지 끝났는지 판단할 수 없는경우에
+      // 마지막 글자가 하나 더 써지는 경우가 발생할 수 있음
+
+      // 조합중일때는 이벤트 전파를 막고,
+      // 끝난후에만 의도한 이벤를 한 번 실행시킨다.
+      if (e.nativeEvent.isComposing) {
+        onSubmit();
+      }
+      setContent("");
     }
   };
 
