@@ -11,12 +11,6 @@
   align-items: stretch;
 }
 
-.header {
-  display: flex;
-  flex-direction: row;
-  height: 53px;
-  align-items: center;
-}
 .message {
   padding-bottom: 24px;
 }
