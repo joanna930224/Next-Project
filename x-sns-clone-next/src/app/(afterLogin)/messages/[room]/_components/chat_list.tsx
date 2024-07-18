@@ -134,8 +134,6 @@ const ChatList = ({ id }: Props) => {
   // TODO : 새 데이터 맨 마지막에 추가
   const [socket] = useSocket();
   useEffect(() => {
-    console.log("메시지 도착");
-
     socket?.on("receiveMessage", (data) => {
       console.log("data", data);
       // TODO : socket - 리액트 쿼리에 데이터 추가

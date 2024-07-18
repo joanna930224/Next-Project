@@ -10,8 +10,6 @@ export default function WebSocketComponent({ id }: { id: string }) {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    console.log("webSocketComponent");
-
     socket?.on("receiveMessage", (data) => {
       console.log("data", data);
 

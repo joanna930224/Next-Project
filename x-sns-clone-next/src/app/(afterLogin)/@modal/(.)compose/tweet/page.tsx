@@ -210,7 +210,6 @@ const TweetModal = () => {
   };
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
-    console.log("onSubmit");
     if (modalStore.mode === "comment") {
       comment.mutate(e);
     } else {

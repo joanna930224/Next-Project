@@ -78,11 +78,9 @@ const ChatForm = ({ id }: Props) => {
   };
 
   const onEnter: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
-    console.log("e.key", e.key);
+    console.log(e.key === "Enter", e);
+
     if (e.key === "Enter") {
-      console.log("onEnter");
-      console.log(content);
-      // console.log(e.key === "Enter", e);
       if (e.shiftKey) {
         return;
       }
