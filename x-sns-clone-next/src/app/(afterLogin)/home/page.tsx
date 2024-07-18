@@ -10,6 +10,12 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { getPostRecommends } from "./_lib/get_post_recommends";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home / X",
+  description: "Home",
+};
 
 export default async function Home() {
   const session = await auth();

@@ -1,6 +1,12 @@
 import style from "./explore.module.css";
 import SearchForm from "../_components/search_form";
 import TrendSection from "./_components/trend_section";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Explore / X",
+  description: "Explore",
+};
 
 export default function Page() {
   return (

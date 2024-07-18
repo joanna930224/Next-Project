@@ -6,6 +6,12 @@ import { QueryClient } from "@tanstack/react-query";
 import { getRoomsServer } from "./_lib/get_room_server";
 import Rooms from "./_components/rooms";
 import WebSocketComponent from "./_components/web_socket_component";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Messages / X",
+  description: "Messages",
+};
 
 export default async function Home() {
   const session = await auth();
