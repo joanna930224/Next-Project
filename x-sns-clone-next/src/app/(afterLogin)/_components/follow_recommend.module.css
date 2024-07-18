@@ -26,6 +26,10 @@
   line-height: 20px;
 }
 
+.title:hover {
+  text-decoration: underline;
+}
+
 .count {
   color: #71767b;
   font-weight: 400;

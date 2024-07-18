@@ -8,6 +8,7 @@ import { User } from "@/models/user";
 import { useSession } from "next-auth/react";
 import { MouseEventHandler } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import Link from "next/link";
 
 type Props = {
   user: User;
@@ -209,7 +210,9 @@ export default function FollowRecommend({ user }: Props) {
         </div>
       </div>
       <div className={style.userInfo}>
-        <div className={style.title}>{user.nickname}</div>
+        <Link href={`/${user.id}`} className={style.title}>
+          {user.nickname}
+        </Link>
         <div className={style.count}>@{user.id}</div>
       </div>
       <div
