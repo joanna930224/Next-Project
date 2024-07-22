@@ -23,7 +23,9 @@
   background-color: transparent;
   padding: 16px;
   color: var(--blue);
+  font-size: 12px;
+  font-weight: 400;
 }
 .trendShowMore:hover {
-  background-color: var(--hover-background-color);
+  text-decoration: underline;
 }

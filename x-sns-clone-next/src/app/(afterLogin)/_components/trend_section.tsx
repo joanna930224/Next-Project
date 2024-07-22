@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Hashtag } from "@/models/hashtag";
 import { getTrends } from "../_lib/get_trends";
 import Trend from "./trend";
+import Link from "next/link";
 
 export default function TrendSection() {
   const { data: session } = useSession();
@@ -30,9 +31,9 @@ export default function TrendSection() {
           {data?.map((trend) => (
             <Trend trend={trend} key={trend.title} />
           ))}
-          <button className={style.trendShowMore}>
-            <div>Show more</div>
-          </button>
+          <div className={style.trendShowMore}>
+            <Link href={`/explore`}>Show more</Link>
+          </div>
         </div>
       </div>
     );
