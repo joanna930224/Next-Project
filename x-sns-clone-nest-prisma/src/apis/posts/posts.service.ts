@@ -622,7 +622,9 @@ export class PostsService {
   remove(id: number) {
     return this.prismaService.client.post.softDelete({
       where: { postId: id },
-      data: {},
+      data: {
+        deletedAt: new Date(),
+      },
     });
   }
 
