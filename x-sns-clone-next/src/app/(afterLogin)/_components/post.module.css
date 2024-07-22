@@ -8,6 +8,7 @@
   transition-property: background-color, box-shadow;
   transition-duration: 0.2s;
   cursor: pointer;
+  position: relative;
 }
 .post:hover {
   background-color: var(--hover-background-color);
@@ -197,7 +198,8 @@
 
 .commentButton button,
 .reportButton button,
-.heartButton button {
+.heartButton button,
+.moreButton button {
   background: #ffffff;
   border: none;
   outline: none;
@@ -284,4 +286,19 @@
 .heartButton.liked .count,
 .heartButton:hover .count {
   color: rgb(228, 34, 126);
+}
+
+.moreButton:hover button {
+  color: var(--blue);
+  background-color: rgba(29, 155, 240, 0.1);
+}
+
+.moreButton button {
+  background-color: rgba(29, 155, 240, 0.01);
+}
+
+.topInfo {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
 }

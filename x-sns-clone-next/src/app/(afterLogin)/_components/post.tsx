@@ -9,6 +9,7 @@ import PostImages from "./post_images";
 import Image from "next/image";
 import { Post as PostModel } from "@/models/post";
 import { MouseEventHandler } from "react";
+import PostMoreButton from "./post_more_button";
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
@@ -63,16 +64,23 @@ export default function Post({ noImage, post }: Props) {
           </Link>
         </div>
         <div className={style.postBody}>
-          <div className={style.postMeta}>
-            <Link href={`/${target.User.id}`} onClick={stopPropagation}>
-              <span className={style.postUserName}>{target.User.nickname}</span>
-              &nbsp;
-              <span className={style.postUserId}>@{target.User.id}</span>
-              &nbsp; · &nbsp;
-            </Link>
-            <span className={style.postDate}>
-              {dayjs(target.createdAt).fromNow(true)}
-            </span>
+          <div className={style.topInfo}>
+            <div className={style.postMeta}>
+              <Link href={`/${target.User.id}`} onClick={stopPropagation}>
+                <span className={style.postUserName}>
+                  {target.User.nickname}
+                </span>
+                &nbsp;
+                <span className={style.postUserId}>@{target.User.id}</span>
+                &nbsp; · &nbsp;
+              </Link>
+              <span className={style.postDate}>
+                {dayjs(target.createdAt).fromNow(true)}
+              </span>
+            </div>
+            <div className={style.moreButton}>
+              <PostMoreButton post={post} />
+            </div>
           </div>
           {target.Parent && (
             <div className={style.reply}>
